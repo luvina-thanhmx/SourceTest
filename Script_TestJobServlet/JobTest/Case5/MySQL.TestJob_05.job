@@ -1,0 +1,9 @@
+JOB = [ name: "MySQL.TestJob_05" ]
+QUERY = '''
+	SHOW GRANTS;
+'''
+SENDTYPE = "Store"
+MONITORINGTYPE = "@DB"
+RESOURCEID = "Sr/MyDbVer"
+DBTYPE = "@MYSQL"
+DEST = parameters.dest

@@ -1,0 +1,3 @@
+*** Config for connect to SQLServer
+=> Vao SQL manager => Chon Protocols => Chon TCP/IP => tab IP Addresses => Fix gia tri tai IP Port = port mong muon.
+Cần chú ý fix port cho trường hợp có nhiều hơn 1 instance SQLServer 

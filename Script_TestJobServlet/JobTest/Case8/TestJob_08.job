@@ -1,0 +1,46 @@
+JOB = [name: "TestJob_08"]
+GROUPKEY = ["Name"]
+FETCHACTION = {
+	def resultData = [
+		[
+                        "Name" : "luvina",
+                        "Count" : 10,
+                        "CumCnt" : 100
+                ],
+		[
+                        "Name" : "insight",
+                        "Count" : 20,
+                        "CumCnt" : 120
+                ]
+	]
+	return resultData
+}
+
+ACCUMULATE = {
+		if(prevOUTPUT != null && !prevOUTPUT.isEmpty()) {
+			OUTPUT.each { rec ->
+				if(prevOUTPUT[rec.Name] != null && prevOUTPUT[rec.Name] == rec.Name) {
+					rec["Count"] = rec["CumCnt"] - prevOUTPUT[rec.PhysicalName]["CumCnt"]
+				} else {
+					rec["Count"] = rec["CumCnt"]
+				}
+			}
+		} else {
+			OUTPUT.each { rec ->
+		    		rec["Count"] = rec["CumCnt"]
+			}
+	    	}
+}
+
+FINALLY = {
+	println "Finally message!!!"
+	def tmpData = [
+			"Name" : "thanhmx",
+                        "Count" : 30,
+                        "CumCnt" : 300
+	]
+	OUTPUT.add(tmpData)
+}
+
+SENDTYPE = "Store"
+DEST = parameters.dest

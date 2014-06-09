@@ -1,0 +1,9 @@
+JOB = [name:"Postgres.TestJob_06"]
+QUERY = """ 
+			SELECT version();
+"""
+KEYEXPR = ["Name"]
+SENDTYPE = "Store"
+DBTYPE = "@PGSQL"
+MONITORINGTYPE = "@DB"
+RESOURCEID = "Sr/PgDbVer"

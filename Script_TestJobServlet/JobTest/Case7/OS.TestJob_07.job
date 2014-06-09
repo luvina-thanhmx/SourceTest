@@ -1,0 +1,13 @@
+JOB = [name:"OS.TestJob_07"]
+
+FETCHACTION = {
+	def command = "mpstat"
+	def output = procRunner.procExecute(command,false).out
+	return output
+}
+
+SENDTYPE = "Store"
+RESOURCEID = "Linux/CPU"
+DEST = parameters.dest
+OSINFO = parameters.osinfo
+MONITORINGTYPE = '@OS'

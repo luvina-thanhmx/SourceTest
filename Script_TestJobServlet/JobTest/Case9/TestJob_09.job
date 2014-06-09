@@ -1,0 +1,21 @@
+JOB = [ name: "TestJob_09" ]
+
+FETCHACTION={  
+def data = [
+        "D" : [
+                [
+                        "Message" : "Group D!",
+                        "Id" : "D01"
+                ]
+        ],
+        "M" : [
+                [
+                        "Message" : "Group M!",
+                        "Id" : "M01"
+                ]
+        ]
+	]
+	return data
+}
+
+DEST = parameters.dest

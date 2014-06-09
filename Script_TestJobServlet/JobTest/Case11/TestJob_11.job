@@ -1,0 +1,8 @@
+JOB = [name:"TestJob_11"]
+FETCHACTION = {
+	// mongodb does not defined
+	def result = mongodb.getDB()
+	return result
+}
+SENDTYPE = "Store"
+DEST = parameters.dest

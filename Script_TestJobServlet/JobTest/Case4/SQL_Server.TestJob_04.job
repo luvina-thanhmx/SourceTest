@@ -1,0 +1,10 @@
+JOB = [name: "SQL_Server.TestJob_04"]
+
+QUERY = '''
+		SELECT @@VERSION;  
+		'''
+
+SENDTYPE = "Store"
+RESOURCEID = "Sr/MsDbVer"
+DBTYPE = "@MSSQL"
+DEST = parameters.dest

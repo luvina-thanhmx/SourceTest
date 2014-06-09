@@ -1,0 +1,4 @@
+JOB = [name: "TestJob01"]
+FETCHACTION = {
+	/*code FETCHACTION here*/
+}

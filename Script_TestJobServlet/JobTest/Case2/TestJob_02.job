@@ -1,0 +1,11 @@
+JOB = [name: "TestJob_02"]
+
+FETCHACTION = {
+	def resultData = "Message test for Case02!!!"
+	return resultData
+}
+
+SENDTYPE = "Store"
+RESOURCEID = "Sr/MsDbVer"
+DBTYPE = "@MSSQL"
+DEST = parameters.dest

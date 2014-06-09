@@ -1,0 +1,4 @@
+JOB = [name:"TestJob_10"]
+COMMAND = 'echo 123 abc def'
+FORMAT = [ match: /([0-9]+)[ \t]+([^ ]+)[ \t]+(.+)/, 1: "id", 2: "name", 3: "desc" ]
+DEST = parameters.dest

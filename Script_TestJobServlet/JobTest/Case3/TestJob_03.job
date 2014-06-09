@@ -1,0 +1,12 @@
+JOB = [name: "TestJob_03"]
+
+FETCHACTION = {
+	def resultData = "Message test for Case03!!!"
+	return resultData
+}
+
+SENDTYPE = "Store"
+RESOURCEID = "As/MsDbFree"
+MONITORINGTYPE = "@DB"
+DBTYPE = "@MYSQL"
+DEST = parameters.dest

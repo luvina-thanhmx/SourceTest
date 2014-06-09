@@ -1,0 +1,78 @@
+*** java version để chạy đc wiperdog tối thiểu là 1.6_0_30
+    bản thấp hơn ko hỗ trợ mã hóa và giải mã, phần data converter
+
+*** sau khi install xong giá trị WIPERDOG_HOME sẽ được ghi vào 2 path:
+  + /etc/rc.d/init.d/wiperdog
+  + /root/folder_wiperdog/bin/wiperdog
+
+*** ERROR: Exception in thread "main" java.lang.NoClassDefFoundError - Linux (Thường là do phiên bản groovy-all download sai)
+- Config tại: \wiperdogInstaller\pom.xml
+- Config tại: \wiperdogInstaller\src\main\resources\extractor.xml
+
+*** Sử dụng WMIC
+
++ Example get data:
+  - wmic os get FreePhysicalMemory,FreeSpaceInPagingFiles,FreeVirtualMemory /format:csv
+  - wmic os get FreePhysicalMemory,FreeSpaceInPagingFiles,FreeVirtualMemory /format:table
+  - wmic os get FreePhysicalMemory,FreeSpaceInPagingFiles,FreeVirtualMemory /value
+
+***Xử lý chuỗi
++ Cắt từng phần tử: data.trim()).split("")
++ check data string dạng numeric: data.matches(".*\\d.*")
++ check character dạng numeric: Character.isDigit(data.charAt(i)) //data là 1 string
+
+***Đóng gói maven
+Command: mvn package
+
+***Tác dụng của waitFor:
+- Chờ cho lệnh thực thi bởi process xong xuôi thì thằng process mới exit.
+- Một số trường hợp để waitFor thì bị treo nếu process thực thi mãi ko dừng.
+- Một số trường hợp ko có waitFor thì sẽ ko lấy được data trả về do thằng process chưa thực thi xong đã bị exit.
+
+***get os name or dir:
+System.getProperty("os.name")
+System.getProperty("user.dir")
+
+*** create array list
+String[] array = new String[]{"a","b"};
+tmpData = Arrays.asList(array); 
+
+*** MongoDB
++ add user:
+	db.addUser("user","pass")
+	db.auth("user","pass")
++ Run mongo:
+	mongod.exe --auth
++ Run mongo other port
+	mongod.exe --dbpath D:\test --port 123
++ Check(#325):
+	mongoDB có dùng username/pass
+		- Connect thành công dùng username/pass đúng
+		- Connect không thành công dùng username/pass sai
+		- Connect không thành công do không dùng username/pass
+	mongoDB không dùng username/pass
+		- Connect thành công không dùng username/pass
+		- Connect thành công dùng username/pass
+
+*** Github revert committed
+	1. clone source
+	2. cd vào trong source
+	3. git reset --soft <hash>
+	4. git push -f
+
+//========================GROOVY=========================
+*** check string use matches and regex
+	String str = "123 thanh luvina insight 123g";
+	def regex = "(.*)thanh(.*)insight(.*)"
+	if (str.matches(regex)) {
+	  println "TRUE"
+	} else {
+	  println "FALSE"
+	}
+
+***Load class sử dụng groovy
+	import org.codehaus.groovy.tools.RootLoader;
+
+	ClassLoader parent = getClass().getClassLoader();
+	GroovyClassLoader loader = new GroovyClassLoader(parent);
+	Class jobExecutableCls = loader.parseClass(new File("src/resource/Common.groovy"));
