@@ -1,0 +1,4 @@
+*** import data
+bsondump.exe collection.bson > collection.json  
+and then  
+mongoimport.exe -d <dbname> -c <collection> < collection.json  
