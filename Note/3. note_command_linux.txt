@@ -63,3 +63,7 @@ catch file | grep "message"
 
 // Check all process
 ps aux
+
+
+//=======================UBUNTU============================
+sudo apt-get install tree
