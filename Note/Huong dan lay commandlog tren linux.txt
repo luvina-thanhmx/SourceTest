@@ -1,0 +1,49 @@
+From: 黒原浩善 [mailto:hkurohar@insight-tec.co.jp] 
+Sent: Friday, April 19, 2013 4:02 PM
+To: Do Thi Huong; pro-insighttech-odc
+Cc: 竹林清美; 宮下みゆき
+Subject: Re: About test (#206, #208, #209)
+
+I was sorry, I forgot to attach sample files.
+Here they are.
+
+2013/4/19 黒原浩善 <hkurohar@insight-tec.co.jp>
+Chào các em,
+Về cách test cho phần #206, #208, #209.
+Tôi đã thử nghĩ ra cách dễ hơn để test.
+
+* Chỉ cần evidence là được. (không cần tạo testcase).
+* Hãy test chỉ bằng Linux.
+* Hãy lấy evidence bằng cách dưới đây.
+Hãy khởi động script logfile1 và script command bằng lệnh của Linux.
+
+Tham số logfile1 thì hãy chọn tên mới để lưu giữ.
+(Đến đây, sau khi nhập lệnh vào thì những dữ liệu đã được nhập vào màn hình sẽ xuất hiện ở log)
+Hãy thực hiện test ở trên shell này.
+ 
+Khi cần thêm một shell nữa để thực hiện test thì hãy khởi động script logfile2 và script command bằng cách đăng nhập vào window khác.
+Tất nhiên là logfile2 này phải có tên không trùng tên với các file đang tồn tại khác.
+Ví dụ:
+ script -t logfile1 2> timfile1
+ cd tgt7110
+ sbin/piexcore
+
+Khi đăng nhập vào window khác
+ script -t logfile2 2> timefile2
+ cd tgt7110/var/job
+ cat MySQL_Performance.InnoDBBufferPool.job
+ vi test.trg
+(Soạn thảo lại test.trg)
+Sau khi làm xong thì exit hết các window đã đăng nhập, do đó các bước làm test sẽ được ghi lại hoàn toàn ở logfile1 và logfile2
+
+Gửi cho tôi cái logfile này theo dạng evidence là được.
+Trong khâu thực hiện test có bị sai sót cũng không sao, nếu sai thì hãy làm lại.
+Tôi có gửi cho các bạn file làm log mẫu đính kèm đấy.
+
+PS: 
+You can use "pv -L 200 -q" command or "scriptreplay" command to replay logfile.
+PS2: 
+This is just a suggestion, you don't have to obey, you can take your own way.
+PS3:
+If you have question, feel free to ask me in English or in Japanese ,or you can ask Thuy directly in vietnamese(but not many).
+
