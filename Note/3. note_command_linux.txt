@@ -64,6 +64,8 @@ catch file | grep "message"
 // Check all process
 ps aux
 
+// Check PID with port processing
+lsof -t -i:13111
 
 //=======================UBUNTU============================
 sudo apt-get install tree
