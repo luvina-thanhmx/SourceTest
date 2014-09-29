@@ -1,0 +1,6 @@
+[
+	"inst1": [:],
+	"inst2": [
+		"params":["hostid":"params_inst02"]
+	]
+]

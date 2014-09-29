@@ -1,0 +1,4 @@
+JOB = [ name: "testJob_02_A", jobclass: "CLASS_A" ]
+FETCHACTION = {   
+   return "testJob_02_A"
+}
