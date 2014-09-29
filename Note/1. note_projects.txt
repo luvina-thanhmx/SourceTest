@@ -1,4 +1,4 @@
-*** java version để chạy đc wiperdog tối thiểu là 1.6_0_30
+﻿*** java version để chạy đc wiperdog tối thiểu là 1.6_0_30.
     bản thấp hơn ko hỗ trợ mã hóa và giải mã, phần data converter
 
 *** sau khi install xong giá trị WIPERDOG_HOME sẽ được ghi vào 2 path:
