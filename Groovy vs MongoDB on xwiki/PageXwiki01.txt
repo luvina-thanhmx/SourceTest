@@ -1,0 +1,17 @@
+{{groovy}}
+import org.xwiki.component.descriptor.*;
+import org.xwiki.script.service.*;
+import com.xpn.xwiki.web.*;
+
+class GetVariable implements ScriptService {
+  public static count = "thanhmx"
+
+  Object getParam() {
+    return count
+  }
+}
+
+DefaultComponentDescriptor descriptor = new DefaultComponentDescriptor(implementation: GetVariable.class, role: ScriptService.class, roleHint: 'GetVariable');
+Utils.getComponentManager().unregisterComponent(GetVariable.class, 'GetVariable');
+Utils.getComponentManager().registerComponent(descriptor);
+{{/groovy}}

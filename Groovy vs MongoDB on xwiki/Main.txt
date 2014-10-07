@@ -1,0 +1,42 @@
+{{groovy}}
+import com.gmongo.GMongo
+import com.mongodb.*
+
+println "===thanhmx test==="
+//==========get variable or method from other page==========
+def data 
+//data = services.GetVariable.getParam()
+println "data: " + services.GetVariable.count
+
+//==========connect to mongodb
+def host = "localhost"a
+def port = 27017
+def dbName= "wiperdog"
+def user = ''
+def pass = ''
+def gmongo
+def db
+
+// create connection to mongodb
+gmongo = new GMongo() 
+// get database
+db = gmongo.getDB(dbName) 
+// get collections of database
+def collections = db.getCollection('Game')
+// get data of collections
+def cursor = collections.find()
+while(cursor.hasNext()){
+    def doc = cursor.next()
+    println doc
+}
+
+// insert data to mongodb
+BasicDBObject doc = new BasicDBObject()
+doc.put("name", "MongoDB")
+doc.put("type", "database")
+doc.put("count", 1)
+
+def collectionTest = db.getCollection('test')
+collectionTest.insert(doc)
+
+{{/groovy}}
