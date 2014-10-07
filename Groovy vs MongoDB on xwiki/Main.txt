@@ -9,7 +9,7 @@ def data
 println "data: " + services.GetVariable.count
 
 //==========connect to mongodb
-def host = "localhost"a
+def host = "localhost"
 def port = 27017
 def dbName= "wiperdog"
 def user = ''
