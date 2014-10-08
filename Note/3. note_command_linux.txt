@@ -27,23 +27,33 @@ path: path to jre or jdk installed
 	cat /path/file_name | grep [string]
 
 //****Chuyển đổi ký tự xuống dòng trong linux sử dụng lệnh dos2unix hoặc cách dưới
-Các file lưu trữ trong các OS khác nhau sẽ có ký tự xuống dòng khác nhau:
-- Linux + Unix : CR (\r trong java)
-- Window: CRLF (\r\n trong java)
-- Mac OS: LF (\n trong java)
+	Cac file lưu trữ trong các OS khác nhau sẽ có ký tự xuống dòng khác nhau:
+	- Linux + Unix : CR (\r trong java)
+	- Window: CRLF (\r\n trong java)
+	- Mac OS: LF (\n trong java)
 
-Khi chuyển một file từ win sang linux nếu execute file đó sẽ bị lỗi định dạng dẫn đến không chạy được.
-Cách chuyển đổi các file lưu trong định dạng win sang linux:
-1/ Mở file bằng vi
-2/ Gõ :
-3/ Thiết lập file format cho linux, gõ set ff=unix sau đó enter
-4/ Gõ :wq (lưu và thoát)
+	Khi chuyển một file từ win sang linux nếu execute file đó sẽ bị lỗi định dạng dẫn đến không chạy được.
+	Cách chuyển đổi các file lưu trong định dạng win sang linux:
+	1/ Mở file bằng vi
+	2/ Gõ :
+	3/ Thiết lập file format cho linux, gõ set ff=unix sau đó enter
+	4/ Gõ :wq (lưu và thoát)
 
-Bây giờ file đã chạy được trên linux, các ký tự xuống dòng được thay từ CRLF sang LF
+	Bây giờ file đã chạy được trên linux, các ký tự xuống dòng được thay từ CRLF sang LF
 
 //***Create new folder
-mkdir
+	mkdir Folder_Name
 
+//***Remove folder vs file
+	rm file
+	rmdir folder
+
+//***Create file and data
+	echo "Test line" > file
+	echo "Another line" >> file
+
+//***download file from url
+	wget url
 
 //***Other
 	sudo
@@ -56,16 +66,16 @@ mkdir
 	vi file_name
 
 //***Check mem usage
-Command => top
+	top
 
-//check message
-catch file | grep "message"
+//***check message
+	file | grep "message"
 
-// Check all process
-ps aux
+//***Check all process
+	ps aux
 
-// Check PID with port processing
-lsof -t -i:13111
+//***Check PID with port processing
+	lsof -t -i:13111
 
 //=======================UBUNTU============================
-sudo apt-get install tree
+	sudo apt-get install tree
