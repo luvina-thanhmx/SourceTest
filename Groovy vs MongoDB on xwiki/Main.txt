@@ -1,6 +1,7 @@
 {{groovy}}
 import com.gmongo.GMongo
 import com.mongodb.*
+import groovy.json.*
 
 println "===thanhmx test==="
 //==========get variable or method from other page==========
@@ -37,6 +38,43 @@ doc.put("type", "database")
 doc.put("count", 1)
 
 def collectionTest = db.getCollection('test')
-collectionTest.insert(doc)
+//collectionTest.insert(doc)
 
+def resultMongo = request.getParameter('result')
+def slurper = new JsonSlurper()
+def dataMongo = [:]
+if(resultMongo != null && resultMongo != '') {
+    dataMongo['data'] = slurper.parseText(resultMongo)
+    insertData(doc)
+} else {
+    dataMongo['data'] = [:]
+}
+def builder = new JsonBuilder(dataMongo['data'])
+def str_json = builder.toPrettyString()
+
+println "===Form data test==="
+println "{{html clean='false' wiki = 'true'}}"
+println "<form action='#' method='POST'>"
+println "<table id='table_display'>"
+println "<tr style='text-align:center'><th>Index</th><th>Name</th><th>Action</th></tr>"
+println "<tr id='input'><td><input type='text' id = 'index' /></td><td><input type='text' id = 'name' /></td></td></tr>"
+println "</table>"
+println "<textarea id='result' name = 'result' style='display: none' readonly>$str_json</textarea>"
+println "<input type='button' id='add' style='width:50px' class='button' value='Add'/>"
+println "<input type='submit' id='insert' style='width:50px' class='button' value='Insert'/>"
+println "</form>"
+println "{{/html}}"
+
+
+def insertData(data) {
+    def gmongo
+    def db
+
+    // create connection to mongodb
+    gmongo = new GMongo() 
+    // get database
+    db = gmongo.getDB("wiperdog") 
+    def collectionTest1 = db.getCollection('test')
+    collectionTest1.insert(data)
+}
 {{/groovy}}
