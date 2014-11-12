@@ -1,0 +1,54 @@
+JOB = [name:"Logstat.Logfile.CSVbyLineTest"]
+
+FETCHACTION = {
+	def shell = new GroovyShell()
+	HashMap<String, Object> input_conf = new HashMap<String, Object>();
+	HashMap<String, Object> output_conf = new HashMap<String, Object>();
+	HashMap<String, Object> filter = new HashMap<String, Object>();
+	HashMap<String, Object> conf = new HashMap<String, Object>();
+	String wd = System.getProperty("felix.home");
+	String logs_test_dir = wd + "/var/job/input/logfile/testCSV";
+	def persistentStartPos = PERSISTENTDATA['start_pos'] != null ? PERSISTENTDATA['start_pos'] : 0;
+	def persistentStartFileName = PERSISTENTDATA['start_file_name'] != null ? PERSISTENTDATA['start_file_name'] : "";
+	// filter data
+	filter = [
+			"filter_type" : "match_field",
+			"filter_conf" : [
+				"date" : "^[0-9]{4}-[0-9]{2}-[0-9]{2}",
+				"time" : "[0-9]{2}:[0-9]{2}:[0-9]{2}",
+				"message" : '^.*$'
+			]
+		]
+	// get data of plaintext
+	input_conf.put("input_type", "file");
+	if (persistentStartFileName != "") {
+		input_conf.put("start_file_name", persistentStartFileName);
+	} else {
+		input_conf.put("start_file_name", "logfile04.csv");
+	}
+	input_conf.put("path", logs_test_dir);
+	input_conf.put("file_format", "csv");
+	input_conf.put("monitor_type", "line");
+	input_conf.put("asc_by_fname", false);
+	if(persistentStartPos != 0) {
+		input_conf.put("start_pos", persistentStartPos);
+	} else {
+		input_conf.put("start_pos", 3);
+	}
+	// output data
+	output_conf.put("type", "job");
+	// map config
+	conf.put("input",input_conf);
+	conf.put("filter",filter);
+	conf.put("output",output_conf);
+	// run log stat
+	def data = m.runLogStat(conf)
+	data = data.replace("{", "[").replace("}", "]")
+	def finalData = shell.evaluate(data)
+	PERSISTENTDATA = finalData['persistent_data']
+	return finalData
+}
+
+SENDTYPE = "Store"
+RESOURCEID = "Logstat/CSVbyLine"
+DEST = [[file:"stdout"]]

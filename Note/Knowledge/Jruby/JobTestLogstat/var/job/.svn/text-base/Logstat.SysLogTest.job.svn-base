@@ -1,0 +1,51 @@
+JOB = [name:"Logstat.SysLogTest"]
+
+FETCHACTION = {
+	def shell = new GroovyShell()
+	HashMap<String, Object> input_conf = new HashMap<String, Object>();
+	HashMap<String, Object> output_conf = new HashMap<String, Object>();
+	HashMap<String, Object> filter = new HashMap<String, Object>();
+	HashMap<String, Object> conf = new HashMap<String, Object>();
+	String wd = System.getProperty("felix.home");
+	def persistentFromTime = PERSISTENTDATA['from_time'] != null ? PERSISTENTDATA['from_time'] : "";
+	// create file messages for test
+	if (!(new File("/usr/messages").exists())) {
+		def inputStr = (new File(wd + "/var/job/input/syslog/messages")).text;
+		FileWriter fw = new FileWriter("/usr/messages")
+		fw.write(inputStr);
+		fw.close();
+	}
+	// filter data
+	filter = [
+			"filter_type" : "match_field",
+			"filter_conf" : [
+				"date": "(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{2} \\d{2}:\\d{2}:\\d{2}",
+				"message": "(vmRHEL55x64).*"
+			]
+	]
+	// get data of plaintext
+	input_conf.put("input_type", "sys_log");
+	input_conf.put("path_conf", wd + "/var/job/input/syslog/logtest01.conf");
+	input_conf.put("log_type", "log.test");
+	if (persistentFromTime != "") {
+		input_conf.put("from_time_generated",persistentFromTime);
+	} else {
+		input_conf.put("from_time_generated","Feb 26 17:52:49");
+	}
+	// output data
+	output_conf.put("type", "job");
+	// map config
+	conf.put("input",input_conf);
+	conf.put("filter",filter);
+	conf.put("output",output_conf);
+	// run log stat
+	def data = m.runLogStat(conf)
+	data = data.replace("{", "[").replace("}", "]")
+	def finalData = shell.evaluate(data)
+	PERSISTENTDATA = finalData['persistent_data']
+	return finalData
+}
+
+SENDTYPE = "Store"
+RESOURCEID = "Logstat/SysLog"
+DEST = [[file:"stdout"]]

@@ -1,0 +1,8 @@
+Câ´u hi`nh luu syslog ta?i file /etc/syslog.conf
+   -> Quy di?nh hoa?t dô?ng ghi log system message cu?a syslog
+
+File na`y gô`m 2 cô?t:
+	- Cô?t 1: thê? hiê?n syslog se~ nhâ?n ca´c message tu` dâu va` mu´c dô? quan tro?ng cu?a message
+	- Cô?t 2: file chu´a ca´c message do´.
+
+=> Viê?c do?c xu? ly´ lâ´y syslog chi´nh la` do?c ca´c log file ghi log duo?c config trong file syslog.conf

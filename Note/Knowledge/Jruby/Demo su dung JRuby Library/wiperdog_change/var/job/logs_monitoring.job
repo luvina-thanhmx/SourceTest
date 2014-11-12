@@ -1,0 +1,7 @@
+JOB = [name:"logs_monitoring"]
+FETCHACTION = {
+	println ">>>>>> " + logstat
+	String[] args = ["-c", "C:/fileconfig.conf"]
+	logstat.runLogStat(args)
+}
+DEST = parameters.dest
