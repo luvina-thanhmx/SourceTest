@@ -87,6 +87,8 @@ startup => /usr/bin/mongod
 ***reverse
 	str.split(' ').toList().reverse().join(' ')
 
+***sort value in list
+	listData.sort()
 ***Load class sử dụng groovy
 	import org.codehaus.groovy.tools.RootLoader;
 
