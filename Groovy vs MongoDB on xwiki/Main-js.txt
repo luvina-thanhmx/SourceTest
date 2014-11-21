@@ -1,0 +1,42 @@
+require(['jquery'], function($) {
+
+    // send data to process
+    function sendData(result) {
+        var data2send = JSON.stringify(result)
+        $("#result").val(data2send)
+    }
+
+    if ($("#result").text() != null) {
+        var result = $.parseJSON($("#result").text())
+    }
+
+    if (result == null || (result instanceof Array)) {
+        result = {}
+    }
+   $("#add").click(function() {
+      var name = $("#name").val()
+      var index = $("#index").val()
+      var tr2 = document.createElement('tr')
+      var td_index2 = document.createElement('td')
+      var inp_index2 = document.createTextNode(index)
+
+      var td_name2 = document.createElement('td')
+      var inp_name2 = document.createTextNode(name)
+
+      td_index2.appendChild(inp_index2)
+      td_name2.appendChild(inp_name2)
+      tr2.appendChild(td_index2)
+      tr2.appendChild(td_name2)
+      $(tr2).insertBefore($("#input"))
+
+      result[index] = {}
+      result[index]['Index'] = index
+      result[index]['Name'] = name
+console.log(result)
+      sendData(result)
+   });
+
+   $("#insert").click(function() {
+      console.log(result)
+   });
+});

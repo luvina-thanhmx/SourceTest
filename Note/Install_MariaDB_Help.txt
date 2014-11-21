@@ -1,0 +1,163 @@
+>Refer:
+>https://mariadb.com/kb/en/building-mariadb-on-ubuntu/
+>https://mariadb.com/kb/en/source-getting-the-mariadb-source-code/
+>https://mariadb.com/kb/en/Linux_Build_Environment_Setup/
+>
+>1) Install required app
+>sudo apt-get install bison cmake libncurses5-dev automake autoconf libtool zlib1g-dev openssl unzip libxml2-dev libboost-dev libjudy-dev -y
+>2) Getting Source:
+>2.1) from tar ball download source tar ball then extract: 
+>    tar -xf mariadb-10.0.11.tar.gz
+>2.2) Using version control app - Bazaar (http://Bazaar-vcs.org)
+>Step1: 
+>    # Install Bazaar
+>    sudo apt-get install bzr
+>    # Initialize repository
+>    mkdir $repo # where $repo is some directory (ex: ~/repos)
+>    cd $repo
+>    bzr init-repo maria # this creates ~/repos/maria
+>
+>Step 2:
+>    # Checkout source code from bazaar repository (from internet for the newest version)
+>    cd $repo/maria # (ex: ~/repos/maria)
+>    bzr branch lp:maria trunk
+>    
+>Wait for a long time then once it is completed do the followings:
+>
+>    cd $repo/maria/trunk
+>    bzr log | less
+>
+>To list log of Bazaar project
+>We suggest to use Bazaar to checkout project.
+>3) remove cmake cache
+>    rm CMakeCache.txt
+>4) Compile C++ soure:
+>    cmake . && make
+>5)Make
+>make all
+>6) Install
+>sudo make install
+>
+>II. Start && test
+>1. Install system tables
+>
+>    ./scripts/mysql_install_db --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data --user=$LOGNAME
+>
+>Check again /usr/local/mysql/data for newly created data files
+>Now, the /usr/local/mysql/support_files folder was created.We have mysql.server script to startup/shutdowm maria db.
+>2.Create a config file /etc/my.cnf from /usr/local/mysql/support-files/(my-small.cnf or my-huge.cnf or my-large.cnf, depend on your purpose)
+>3. Startup
+>Using 
+>    /usr/local/mysql/support_files/mysql.server start/stop
+>Or can startup by 
+>    /usr/local/mysql/bin/mysqld_safe --datadir='/usr/local/mysql/data'
+>4. Client connection and test
+>Connect to maria DB by: /usr/local/bin/mysql -u root
+>console output should be:
+>"
+>root@nghia-virtual-machine:/usr/local/mysql# bin/mysql -u root
+>Welcome to the MariaDB monitor.  Commands end with ; or \g.
+>Your MariaDB connection id is 3
+>Server version: 10.0.11-MariaDB Source distribution
+>
+>Copyright (c) 2000, 2014, Oracle, SkySQL Ab and others.
+>
+>Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+>
+>MariaDB [(none)]> show databases;
+>+--------------------+
+>| Database           |
+>+--------------------+
+>| information_schema |
+>| mysql              |
+>| performance_schema |
+>| test               |
+>+--------------------+
+>4 rows in set (0.00 sec)
+>
+>MariaDB [(none)]> 
+>MariaDB [(none)]> 
+>MariaDB [(none)]> 
+>MariaDB [(none)]> 
+>"Refer:
+https://mariadb.com/kb/en/building-mariadb-on-ubuntu/
+https://mariadb.com/kb/en/source-getting-the-mariadb-source-code/
+https://mariadb.com/kb/en/Linux_Build_Environment_Setup/
+
+1) Install required app
+sudo apt-get install bison cmake libncurses5-dev automake autoconf libtool zlib1g-dev openssl unzip libxml2-dev libboost-dev libjudy-dev -y
+2) Getting Source:
+2.1) from tar ball download source tar ball then extract: 
+    tar -xf mariadb-10.0.11.tar.gz
+2.2) Using version control app - Bazaar (http://Bazaar-vcs.org)
+Step1: 
+    # Install Bazaar
+    sudo apt-get install bzr
+    # Initialize repository
+    mkdir $repo # where $repo is some directory (ex: ~/repos)
+    cd $repo
+    bzr init-repo maria # this creates ~/repos/maria
+
+Step 2:
+    # Checkout source code from bazaar repository (from internet for the newest version)
+    cd $repo/maria # (ex: ~/repos/maria)
+    bzr branch lp:maria trunk
+    
+Wait for a long time then once it is completed do the followings:
+
+    cd $repo/maria/trunk
+    bzr log | less
+
+To list log of Bazaar project
+We suggest to use Bazaar to checkout project.
+3) remove cmake cache
+    rm CMakeCache.txt
+4) Compile C++ soure:
+    cmake . && make
+5)Make
+make all
+6) Install
+sudo make install
+
+II. Start && test
+1. Install system tables
+
+    ./scripts/mysql_install_db --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data --user=$LOGNAME
+
+Check again /usr/local/mysql/data for newly created data files
+Now, the /usr/local/mysql/support_files folder was created.We have mysql.server script to startup/shutdowm maria db.
+2.Create a config file /etc/my.cnf from /usr/local/mysql/support-files/(my-small.cnf or my-huge.cnf or my-large.cnf, depend on your purpose)
+3. Startup
+Using 
+    /usr/local/mysql/support_files/mysql.server start/stop
+Or can startup by 
+    /usr/local/mysql/bin/mysqld_safe --datadir='/usr/local/mysql/data'
+4. Client connection and test
+Connect to maria DB by: /usr/local/bin/mysql -u root
+console output should be:
+"
+root@nghia-virtual-machine:/usr/local/mysql# bin/mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 10.0.11-MariaDB Source distribution
+
+Copyright (c) 2000, 2014, Oracle, SkySQL Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+4 rows in set (0.00 sec)
+
+MariaDB [(none)]> 
+MariaDB [(none)]> 
+MariaDB [(none)]> 
+MariaDB [(none)]> 
+"

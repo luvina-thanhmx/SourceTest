@@ -1,0 +1,7 @@
+JOB = [name:"wiperdogJruby"]
+FETCHACTION = {
+	println ">>>>>> " + m
+	String[] args = ["-c", "C:/config.conf"]
+	m.runLogStat(args)
+}
+DEST = parameters.dest

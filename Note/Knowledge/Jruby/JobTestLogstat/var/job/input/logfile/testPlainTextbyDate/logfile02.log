@@ -1,0 +1,7 @@
+2014-02-01 00:51:52 Security policy in the Group policy objects has been applied successfully.
+2014-02-02 16:13:59 Windows cannot query for the list of Group Policy objects. A message that describes the reason for this was previously logged by the policy engine.
+2014-02-03 16:13:59 Windows cannot access the file gpt.ini for GPO cn={01A2B03D-6012-470A-8AA7-3D2439D82169},cn=policies,cn=system,DC=luvina,DC=net. The file must be present at the location <\\luvina.net\SysVol\luvina.net\Policies\{01A2B03D-6012-470A-8AA7-3D2439D82169}\gpt.ini>. (The system cannot find the path specified. ). Group Policy processing aborted. 
+2014-02-04 16:05:12 Windows cannot query for the list of Group Policy objects. A message that describes the reason for this was previously logged by the policy engine.
+2014-02-05 16:05:12 Windows cannot access the file gpt.ini for GPO cn={01A2B03D-6012-470A-8AA7-3D2439D82169},cn=policies,cn=system,DC=luvina,DC=net. The file must be present at the location <\\luvina.net\SysVol\luvina.net\Policies\{01A2B03D-6012-470A-8AA7-3D2439D82169}\gpt.ini>. (The system cannot find the path specified. ). Group Policy processing aborted. 
+2014-02-06 07:59:02 Security policy in the Group policy objects has been applied successfully.
+2014-02-07 07:59:02 Security policy in the Group policy objects has been applied successfully.

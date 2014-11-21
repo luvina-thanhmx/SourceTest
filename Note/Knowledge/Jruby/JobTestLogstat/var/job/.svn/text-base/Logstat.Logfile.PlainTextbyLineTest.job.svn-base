@@ -1,0 +1,57 @@
+JOB = [name:"Logstat.Logfile.PlainTextbyLineTest"]
+
+FETCHACTION = {
+	def shell = new GroovyShell()
+	HashMap<String, Object> input_conf = new HashMap<String, Object>();
+	HashMap<String, Object> output_conf = new HashMap<String, Object>();
+	HashMap<String, Object> filter = new HashMap<String, Object>();
+	HashMap<String, Object> conf = new HashMap<String, Object>();
+	String wd = System.getProperty("felix.home");
+	String logs_test_dir = wd + "/var/job/input/logfile/testPlainTextbyLine";
+	def persistentStartPos = PERSISTENTDATA['start_pos'] != null ? PERSISTENTDATA['start_pos'] : 0;
+	def persistentStartFileName = PERSISTENTDATA['start_file_name'] != null ? PERSISTENTDATA['start_file_name'] : "";
+	// filter data
+	filter = [
+			"filter_type" : "match_log_record",
+			"filter_conf" : [
+				"format_log" : "Toi la (\\w*), toi (\\d{2}) tuoi, que((\\s(\\w*))*)",
+				"data" : [
+					1 : "name",
+					2 : "age",
+					3 : "state"
+				]
+			]
+		]
+	// get data of plaintext
+	input_conf.put("input_type", "file");
+	if (persistentStartFileName != "") {
+		input_conf.put("start_file_name", persistentStartFileName);
+	} else {
+		input_conf.put("start_file_name", "logfile02.log");
+	}
+	input_conf.put("path", logs_test_dir);
+	input_conf.put("file_format", "plain_text");
+	input_conf.put("monitor_type", "line");
+	input_conf.put("asc_by_fname", false);
+	if(persistentStartPos != 0) {
+		input_conf.put("start_pos", persistentStartPos);
+	} else {
+		input_conf.put("start_pos", 2);
+	}
+	// output data
+	output_conf.put("type", "job");
+	// map config
+	conf.put("input",input_conf);
+	conf.put("filter",filter);
+	conf.put("output",output_conf);
+	// run log stat
+	def data = m.runLogStat(conf)
+	data = data.replace("{", "[").replace("}", "]")
+	def finalData = shell.evaluate(data)
+	PERSISTENTDATA = finalData['persistent_data']
+	return finalData
+}
+
+SENDTYPE = "Store"
+RESOURCEID = "Logstat/PlainTextLine"
+DEST = [[file:"stdout"]]

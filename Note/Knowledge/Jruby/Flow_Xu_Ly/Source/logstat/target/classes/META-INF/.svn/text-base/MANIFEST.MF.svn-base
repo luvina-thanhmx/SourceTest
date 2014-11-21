@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1391761390116
+Build-Jdk: 1.6.0_45
+Built-By: nguyenxuanluong
+Bundle-Activator: activator.Activator
+Bundle-Description: Logs monitoring demo using Jruby & Java
+Bundle-ManifestVersion: 2
+Bundle-Name: Log Stat Demo
+Bundle-SymbolicName: org.wiperdog.logstat
+Bundle-Version: 1.0.0
+Created-By: Apache Maven Bundle Plugin
+Export-Package: activator;version="1.0.0";uses:="org.osgi.framework",ser
+ vice;version="1.0.0",impl;version="1.0.0";uses:="org.osgi.framework,ser
+ vice"
+Import-Package: org.jruby;version="[1.7,2)",org.jruby.embed;version="[1.
+ 7,2)",org.jruby.embed.osgi;version="[1.7,2)",org.jruby.runtime;version=
+ "[1.7,2)",org.jruby.runtime.builtin;version="[1.7,2)",org.jruby.runtime
+ .load;version="[1.7,2)",org.osgi.framework;version="[1.6,2)",org.yecht.
+ ruby
+Tool: Bnd-2.1.0.20130426-122213

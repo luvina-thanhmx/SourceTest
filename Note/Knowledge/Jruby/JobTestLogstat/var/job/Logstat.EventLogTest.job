@@ -1,0 +1,64 @@
+JOB = [name:"Logstat.EventLogTest"]
+
+FETCHACTION = {
+	def shell = new GroovyShell()
+	def from_time_generated = new java.text.SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+	def create_evlog_cmd = 'cmd /c eventcreate /L Application /SO LOGSTAT /ID 1 /T ERROR /D "1-This is an error event of LOGSTAT application" '
+	def create_evlog_cmd2 = 'cmd /c eventcreate /L Application /SO LOGSTAT /ID 2 /T ERROR /D "2-This is another error event of LOGSTAT application"'
+	def create_evlog_cmd3 = 'cmd /c eventcreate /L Application /SO LOGSTAT /ID 3 /T WARNING /D "3-This is a warning event of LOGSTAT application" '
+	def proc = create_evlog_cmd.execute();
+	proc.waitFor();
+	Thread.sleep(2000)
+	proc = create_evlog_cmd2.execute();
+	proc.waitFor();
+	Thread.sleep(4000)
+	proc = create_evlog_cmd3.execute();
+	proc.waitFor();
+	HashMap<String, Object> input_conf = new HashMap<String, Object>();
+	HashMap<String, Object> output_conf = new HashMap<String, Object>();
+	HashMap<String, Object> filter = new HashMap<String, Object>();
+	HashMap<String, Object> conf = new HashMap<String, Object>();
+	String wd = System.getProperty("felix.home");
+	String logs_test_dir = wd + "/var/job/input";
+	def persistentFromTime = PERSISTENTDATA['from_time'] != null ? PERSISTENTDATA['from_time'] : "";
+	// filter data
+	filter = [
+			filter_type :"",
+			filter_conf :[
+				"data_field" : [
+					"source_name",
+					"type",
+					"time",
+					"message"
+				],
+				"filter" : [
+					"message" : '^(?!\\s*$).+',
+					"source_name" : '(LOGSTAT)'
+				]
+			]
+		]
+	// get data of plaintext
+	input_conf.put("input_type", "eventlog");
+	input_conf.put("event_log_type","Application");
+	if (persistentFromTime != "") {
+		input_conf.put("from_time_generated",persistentFromTime);
+	} else {
+		input_conf.put("from_time_generated",from_time_generated.toString());
+	}
+	// output data
+	output_conf.put("type", "job");
+	// map config
+	conf.put("input",input_conf);
+	conf.put("filter",filter);
+	conf.put("output",output_conf);
+	// run log stat
+	def data = m.runLogStat(conf)
+	data = data.replace("{", "[").replace("}", "]")
+	def finalData = shell.evaluate(data)
+	PERSISTENTDATA = finalData['persistent_data']
+	return finalData
+}
+
+SENDTYPE = "Store"
+RESOURCEID = "Logstat/EventLog"
+DEST = [[file:"stdout"]]

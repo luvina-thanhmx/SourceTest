@@ -1,0 +1,1 @@
+job:"wiperdogJruby", schedule:"5"

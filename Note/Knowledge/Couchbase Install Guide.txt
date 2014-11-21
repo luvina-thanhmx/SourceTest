@@ -1,0 +1,43 @@
+Install 
+	Thuc hien nhu duoi day (cai dat tren moi truong ubuntu)
+		1. Command:
+			sudo apt-get install libssl0.9.8
+		2. Download bo cai dat DEB: (~ 134M)
+			http://www.couchbase.com/download
+			(Cần đăng ký, link download sẽ gửi về mail đăng ký)
+				couchbase-server-enterprise_2.5.1_x86_64.deb
+		3. Command:
+			dpkg -i couchbase-server-enterprise_2.5.1_x86_64.deb
+	Config: 
+		1. Vào link tương ứng được báo sau khi cài đặt thành công, vd:
+			http://localhost:8091/index.html
+			- Có thể bổ xung server tạo hệ thống cluster.... (Tab Server Nodes)
+			- Config Data Buckets (1 data bucket tương đương với khái niệm 1 database) : memory,...
+			- View (tạo view data đối với mỗi bucket)
+			- ...
+		2. Config các thông tin cần thiết.
+			http://docs.couchbase.com/couchbase-manual-2.5/cb-install/#initial-server-setup
+	Nơi chứa dữ liệu cài đặt:
+		/opt/couchbase
+	Tham khao: http://docs.couchbase.com/couchbase-manual-2.5/cb-install/#ubuntu-linux-installation
+
+Control: *** Sau khi cài đặt, có thể dùng service command để control hoạt động tương ứng.
+	Start/stop/ get status như service với tên couchbase-server
+		(sudo) service couchbase-server start/stop/status
+
+Test Couchbase server:
+	1. Test 1 số batch trong /opt/couchbase/bin (/tools)
+		cbdocloader:	http://blog.couchbase.com/loading-json-data-couchbase
+		cbworkloadgen:	http://blog.couchbase.com/couchbase-workload-generator
+		....
+	2. Test tạo thử bucket, thêm data từ web console
+		- Đăng nhập vào http://localhost:8091/index.html
+		- Tạo mới Data Buckets: test
+		chú ý:
+			- Thường default các bucket hiện thời sẽ chiếm 100% ram, nên sẽ cần chỉnh sửa để chừa ra ram dùng cho bucket mới trước
+				(Xem dung lượng Ram dùng ở cột RAM/Quota Usage)
+				Chỉnh RAM của 1 bucket bằng cách click chọn vào detail bucket (hình tam giác cạnh tên bucket) -> edit (phía tay phải)
+		- Tạo mới document, như 1 nơi lưu trữ 1 data (1 Json Object)
+			Tham khảo: http://tugdualgrall.blogspot.com/2012/07/couchbase-101-install-store-and-query.html
+	3. Lưu trữ và query bằng cách dùng ngôn ngữ lập trình xử lý:
+		http://www.couchbase.com/communities/java/getting-started

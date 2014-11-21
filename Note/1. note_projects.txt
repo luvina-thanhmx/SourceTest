@@ -1,4 +1,4 @@
-*** java version để chạy đc wiperdog tối thiểu là 1.6_0_30
+﻿*** java version để chạy đc wiperdog tối thiểu là 1.6_0_30.
     bản thấp hơn ko hỗ trợ mã hóa và giải mã, phần data converter
 
 *** sau khi install xong giá trị WIPERDOG_HOME sẽ được ghi vào 2 path:
@@ -17,7 +17,7 @@
   - wmic os get FreePhysicalMemory,FreeSpaceInPagingFiles,FreeVirtualMemory /value
 
 ***Xử lý chuỗi
-+ Cắt từng phần tử: data.trim()).split("")
++ Cắt từng phần tử: data.trim().split("")
 + check data string dạng numeric: data.matches(".*\\d.*")
 + check character dạng numeric: Character.isDigit(data.charAt(i)) //data là 1 string
 
@@ -37,7 +37,13 @@ System.getProperty("user.dir")
 String[] array = new String[]{"a","b"};
 tmpData = Arrays.asList(array); 
 
-*** MongoDB
+*** Get/Kill process
+Window: 
+	netstat -abno | findstr 13111
+	taskkill /f /pid 13111
+Linux: lsof -t -i:13111
+
+=================== MongoDB =======================
 + add user:
 	db.addUser("user","pass")
 	db.auth("user","pass")
@@ -54,6 +60,11 @@ tmpData = Arrays.asList(array);
 		- Connect thành công không dùng username/pass
 		- Connect thành công dùng username/pass
 
+*** Mongodb on ubuntu
+data ===> /var/lib/mongodb
+startup => /usr/bin/mongod
+
+=================== Github =======================
 *** Github revert committed
 	1. clone source
 	2. cd vào trong source
@@ -70,9 +81,105 @@ tmpData = Arrays.asList(array);
 	  println "FALSE"
 	}
 
+***remove all non-numeric in string
+	str.replaceAll( "[^\\d]", "" )
+
+***reverse
+	str.split(' ').toList().reverse().join(' ')
+
+***sort value in list
+	listData.sort()
 ***Load class sử dụng groovy
 	import org.codehaus.groovy.tools.RootLoader;
 
 	ClassLoader parent = getClass().getClassLoader();
 	GroovyClassLoader loader = new GroovyClassLoader(parent);
 	Class jobExecutableCls = loader.parseClass(new File("src/resource/Common.groovy"));
+
+***add data
+	tmpList = []
+	tmpList.add("value")
+# in JS: tmpList.push("value")
+
+***convert string to map
+	def data = 'session=234567893egshdjchasd&userId=12345673456&timeOut=1800000'
+	def result = data.split('&').inject([:]) { map, token -> 
+	    token.split('=').with { map[it[0]] = it[1] }
+	    map 
+	}
+***convert string
+def str = "thanh mx"
+println str.capitalize()
+println str.toLowerCase()
+assert "bo peep".toUpperCase() == 'BO PEEP'
+
+
+*** json data
+File f = new File("input.txt")
+println f.getText()
+def map = '{"person":{"name":"Guillaume","age":33,"pets":["dog","cat"]}}'
+f.setText(map)
+def slurper = new groovy.json.JsonSlurper()
+def result = slurper.parseText(f.getText())
+
+**** check connect to host on port
+public boolean serverListening(String host, int port) {
+	Socket s = null;
+	try {
+		s = new Socket(host, port);
+		return true;
+	}
+	catch(Exception e) {
+		return false;
+	}
+	finally {
+		if(s != null)
+			try {
+				s.close();
+			}
+			catch(Exception e){
+			}
+	}
+}
+
+println serverListening("10.0.0.240", 13111)
+
+http://pleac.sourceforge.net/pleac_groovy/strings.html
+//======================JS=============================
+cách replace => str.replace(".","_")
+cách replace all => str.split(".").join("_")
+
++ catch exception:
+try{
+} catch(e) {
+console.log(e.stack)
+}
+
+=====================================================
+***Dependency
+A => B <=> A use B
+
+- WiperDogLib.RealtimeData => WiperDogLib.MongoDBConnection, WiperDogLib.DataToDrawChart
+- WiperDogLib.RealtimeDataLiveTable => WiperDogLib.MongoDBConnection, WiperDogLib.DataToDrawChart
+- WiperDogLib.ConsoleService => WiperDog.GetServletClass => WiperDog.GetConstantConfig
+- WiperDogLib.LivetableDataAdapter => WiperDogLib.MongoDBConnection
+- WiperDogLib.MenuGenerator(xwiki, js) => WiperDogLib.MongoDBConnection, WiperDogLib.MenuGeneratorLib
+- WiperDogLib.MenuGeneratorLib => WiperDogLib.MongoDBConnection
+- WiperDogLib.MsgPolicyFromMongo => WiperDogLib.MongoDBConnection
+- WiperDogLib.chooseJobProcess => WiperDogLib.MongoDBConnection
+- WiperDogLib.ExportPDFLib => WiperDogLib.jsPDF
+
+- WiperDog.GetServlet => WiperDog.GetServletClass
+- WiperDog.ConsoleManagement(xwiki, js) => WiperDogLib.JQueryUILib, WiperDogLib.ConsoleService
+- WiperDog.DisplayPolicy(xwiki, js) => WiperDogLib.JQueryUILib, WiperDogLib.JqGridLib, WiperDogLib.ExportPDFLib, WiperDogLib.jsPDF, WiperDogLib.MsgPolicyFromMongo
+- WiperDog.ImportInstance(xwiki, js) => WiperDog.GetServlet
+- WiperDog.JobConfiguration(xwiki, js) => WiperDog.GetServlet, WiperDog.TestJob, WiperDog.JobDeclared, WiperDog.ImportInstanceServlet
+- WiperDog.JobDBConnectionConfiguration(xwiki, js) => WiperDog.GetServlet
+- WiperDog.JobDoc(xwiki, js) => WiperDog.GetServlet
+- WiperDog.LastAccumulation(xwiki, js) => WiperDogLib.MongoDBConnection, WiperDogLib.JQueryUILib, WiperDogLib.JqGridLib, WiperDogLib.Highcharts
+- WiperDog.LogFileInfo(xwiki, js) => WiperDog.GetServlet
+- WiperDog.WiperdogServiceInstallation(xwiki, js) => WiperDog.ProcInstallWDService
+- WiperDog.MonitoringData(xwiki, js) => WiperDogLib.MongoDBConnection, WiperDogLib.DataToDrawChart, WiperDogLib.JQueryUILib, WiperDogLib.JqGridLib, WiperDogLib.ExportPDFLib, WiperDogLib.jsPDF, WiperDogLib.MenuGenerator, WiperDogLib.LivetableDataAdapter, WiperDogLib.RealtimeData, WiperDogLib.RealtimeDataLiveTable
+- WiperDog.TestJob(xwiki, js) => WiperDog.GetServlet
+- WiperDog.WiperdogConfiguration(xwiki, js) => WiperDog.GetConstantConfig, WiperDog.ControlProcess
+- WiperDog.processPolicy(xwiki, js) => WiperDogLib.PolicyStringLib, WiperDog.GetServlet, WiperDogLib.chooseJobProcess

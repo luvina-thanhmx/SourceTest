@@ -1,0 +1,3 @@
+activator\Activator.class
+impl\LogStatImpl.class
+service\LogStat.class
