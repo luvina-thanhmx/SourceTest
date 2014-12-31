@@ -1,0 +1,36 @@
+{
+    "jobDropList": [
+        {
+            "itemName": "Performance",
+            "header": true
+        },
+        {
+            "itemName": "Cpu",
+            "header": false
+        },
+        {
+            "itemName": "CpuWaitIO",
+            "header": false
+        },
+        {
+            "itemName": "CpuRunQueue",
+            "header": false
+        },
+        {
+            "itemName": "Area Space",
+            "header": true
+        },
+        {
+            "itemName": "DiskFree",
+            "header": false
+        },
+        {
+            "itemName": "Proactive Check",
+            "header": true
+        },
+        {
+            "itemName": "Count",
+            "header": false
+        } 
+    ] 
+}

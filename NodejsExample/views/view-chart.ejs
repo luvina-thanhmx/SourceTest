@@ -1,0 +1,246 @@
+<!-- views/view-chart.ejs -->
+<!DOCTYPE html> 
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WiperDog > At a glance > View chart with severity lines</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-col8.css" rel="stylesheet">
+	<link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-toggle.min.css" rel="stylesheet">
+	<link href="css/jquery-ui.css" rel="stylesheet">
+	<link href="css/dialog.css" rel="stylesheet">
+	<!-- Custom styles for left menu -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    
+	<!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+	<link href="css/demo.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+	
+	<!-- Loading Font Awesome -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	
+	<!-- Loading instances detail css -->
+	<link rel="stylesheet" href="css/instances-detail/grid.css"/>
+	<link rel="stylesheet" href="css/instances-detail/pager.css"/>
+	<link rel="stylesheet" href="theme/custom-theme/jquery-ui-1.7.2.custom.css"/>
+	<link rel="stylesheet" href="css/instances-detail/examples.css"/>
+	<link rel="stylesheet" href="css/instances-detail/columnpicker.css"/>	
+	
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+	
+	<!-- Top Bar -->
+	      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="#">WiperDog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-5">
+          <ul class="nav navbar-nav">
+            <li style="background-color:#2980B9;"><a href="#">Jobs</a></li>
+			<li><a href="#">Databases</a></li>
+			<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li> 
+			<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-question-circle"></i> Help<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+           </ul>
+          <form class="navbar-form navbar-left" action="#" role="search">
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn"><span class="fui-search"></span></button>
+                </span>
+              </div>
+            </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right" style="margin-right:5px;">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fui-user"></span> nkazuki@insight-tec.com.vn<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+  	 	 	
+    <!-- Below the top navbar -->
+	
+    <div class="container-fluid">
+      <div class="row">
+	  
+		<!-- Left menu -->
+		
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="#"><span style="color: #2980B9;">At a glance</span></a></li>
+            <li class="dbms"><a href="#"><span class="redBall">1</span> <span style="color: #2980B9;">MySQL</span></a></li>
+            <li class="dbms"><a href="#"><span class="redBall">1</span> <span style="color: #2980B9;">SQL Server</span></a></li>
+            <li class="dbms"><a href="#"><span class="redBall">1</span> <span style="color: #2980B9;">Couchbase</span></a></li>
+            <li class="active"><a href="#"><span class="redBall">1</span> <span style="color: white;">MariaDB</span></a></li>
+            <li class="dbms"><a href="#"><span class="orangeBall">2</span> <span style="color: #2980B9;">MongoDB</span></a></li>
+            <li class="dbms"><a href="#"><span class="orangeBall">2</span> <span style="color: #2980B9;">PostgreSQL</span></a></li>
+            <li class="dbms"><a href="#"><span class="orangeBall">2</span> <span style="color: #2980B9;">DB2</span></a></li>
+            <li class="dbms"><a href="#"><span class="orangeBall">2</span> <span style="color: #2980B9;">Sybase</span></a></li>
+            <li class="dbms"><a href="#"><span class="orangeBall">2</span> <span style="color: #2980B9;">Teradata</span></a></li>
+            <li class="dbms"><a href="#"><span class="yellowBall">3</span> <span style="color: #2980B9;">CONNX</span></a></li>
+            <li class="dbms"><a href="#"><span class="yellowBall">3</span> <span style="color: #2980B9;">FileMaker Server</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">5</span> <span style="color: #2980B9;">Adabas</span></a></li>
+            <li class="dbms"><a href="#"><span class="greenBall">5</span> <span style="color: #2980B9;">Aerospike</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">5</span> <span style="color: #2980B9;">BizDB</span></a></li>
+            <li class="dbms"><a href="#"><span class="greenBall">5</span> <span style="color: #2980B9;">Clearsting</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">5</span> <span style="color: #2980B9;">Cubrid</span></a></li>
+            <li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">Data Hub</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">DBM Solutions</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">Database Oasis</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">Devgems Data Modeler</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">3</span> <span style="color: #2980B9;">Empress RDBMS</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">Firebird</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">FoundationDB</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">HSQLDB</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">idMatch</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">IPA</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">Maisy Database</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">PHPMagic</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">RethinkDB</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">TEXTML Server</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">Total Path Suite</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">Valentina</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">X-HIVE/DB</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">1</span> <span style="color: #2980B9;">Zoho Creator</span></a></li>
+			<li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul>
+        </div>
+		
+		<!-- Right body -->
+		
+		<!-- Right body > fixed bar to select job -->
+		
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="position: fixed; z-index: 1; background-color:white; padding-bottom:0px; padding-top:5px; margin-top:50px;">
+			<h3 class="page-header" style="margin-bottom:0px; border-bottom-width:0px; padding-bottom:7px;">
+				<div class="btn-group">
+					<button data-toggle="dropdown" class="btn btn-info dropdown-toggle" type="button">Cpu<span class="caret"></span></button>
+					<ul role="menu" class="dropdown-menu" id="dropdown-joblist">
+						<!-- list items will be rendered by jQuery with data from json file -->
+					</ul>
+				</div>
+				<style>
+				  .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+				  .toggle.ios .toggle-handle { border-radius: 20px; }
+				</style>
+				<a style = "font-size: small;">
+					Weekly <input id="weekly-check" type="checkbox" data-toggle="toggle" data-size="mini" data-style="ios" >
+					Monthly <input id="monthly-check" type="checkbox" data-toggle="toggle" data-size="mini" data-style="ios">
+					Yearly <input id="yearly-check" type="checkbox" data-toggle="toggle" data-size="mini" data-style="ios">
+				</a>
+			</h3>			
+ 	    </div>
+		
+		<div id="containerTestAJAX"></div>
+		
+		<!-- Draw chart and instances table -->
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:100px;">
+			<!-- draw charts -->
+			<div id="containerByDay"></div>
+			<!-- /.Right body > charts -->
+			<div id="containerWeekly"></div>
+			<!-- <div id="control" style="width:800px;height:625px;margin:1.5em 1em;"></div> -->
+			<!-- Right body > data table -->
+			
+			<div style="width:640px;">
+				<div class="grid-header" style="width:100%">
+					<label>Instances Detail</label>
+					<span style="float:right" class="ui-icon ui-icon-search" title="Search panel" onclick="toggleFilterRow()"></span>
+				</div>
+				<div id="myGrid" style="width:100%;height:500px;"></div>
+				<div id="pager" style="width:100%;height:20px;"></div>
+				<form method="post" name="formOutput" id="formOutput">
+					<input name="outputItems" id="outputItems" type="hidden">
+					<input name="outputHeaders" id="outputHeaders" type="hidden">
+				</form>
+			</div>
+
+			<div id="inlineFilterPanel" style="display:none;background:#dddddd;padding:3px;color:black;">
+				&nbsp;&nbsp;Instance:&nbsp;<input type="text" id="txtSearch" style="width:115px;">
+				<!--&nbsp;&nbsp;SV3:&nbsp;&nbsp;<div style="width:100px;display:inline-block;" id="pcSlider"></div>-->
+			</div>
+        </div>
+      </div>
+    </div>
+
+	<!-- Default container > not used -->
+	<div class="container"></div>
+    <!-- /.container -->
+
+    <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/video.js"></script>
+    <script src="js/flat-ui.min.js"></script>
+	<!-- For HighCharts -->
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/highcharts-more.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+	<script src="js/bootstrap-toggle.min.js"></script>
+	<!-- Loading JQuery code for HighCharts -->
+	<script src="js/wiperdog-view-chart.js"></script>
+	
+	<!-- Loading instances detail js -->
+	<script language="JavaScript" src="lib/firebugx.js"></script>
+	<script language="JavaScript" src="lib/jquery-1.4.2.min.js"></script>
+	<script language="JavaScript" src="lib/jquery-ui-1.7.2.custom.min.js"></script>
+	<script language="JavaScript" src="lib/jquery.rule-1.0.1.1-min.js"></script>
+	<script language="JavaScript" src="lib/jquery.event.drag.custom.js"></script>
+
+	<script language="JavaScript" src="js/instances-detail/editors.js"></script>
+	<script language="JavaScript" src="js/instances-detail/grid.js"></script>
+	<script language="JavaScript" src="js/instances-detail/model.js"></script>
+	<script language="JavaScript" src="js/instances-detail/output.js"></script>
+	<script language="JavaScript" src="js/instances-detail/pager.js"></script>
+	<script language="JavaScript" src="js/instances-detail/columnpicker.js"></script>
+	<script language="JavaScript" src="js/instances-detail/instancesDetail.js"></script>
+	
+  </body>
+</html>

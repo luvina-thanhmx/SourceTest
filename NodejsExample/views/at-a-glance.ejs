@@ -1,0 +1,461 @@
+<!-- views/at-a-glance.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WiperDog > At a glance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<!-- Loading Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/jquery-ui.css" rel="stylesheet">
+	<link href="css/dialog.css" rel="stylesheet">
+	<!-- Custom styles for left menu -->
+    <link href="css/dashboard.css" rel="stylesheet">
+	
+	<!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+	<link href="css/demo.css" rel="stylesheet">
+	
+	<link rel="shortcut icon" href="img/favicon.ico">
+	
+	<!-- Loading Font Awesome -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	
+	<!-- For HighCharts -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+$(function () {
+	$.ajax({
+		 type:"GET"
+		,async : false
+		,url:"json/rd.json"
+		,dataType:"json"
+		,success : function(poJson){
+			$('#container').highcharts({
+				
+				chart: {
+					polar: true,
+					type: 'area',
+					height: 100,
+					width: 120,
+					spacingTop:0,
+					spacingRight:0,
+					spacingBottom:0,
+					spacingLeft:0
+				},
+
+				title: {
+					text: null
+				},
+				
+				credits: {
+					enabled: false
+				},
+				exporting: {
+					enabled: false
+				},
+
+				pane: {
+					center: ['50%', '50%'],
+					size: 80
+				},
+
+				xAxis: {
+					categories: ['', '', '', '',
+							'', ''],
+					tickmarkPlacement: 'on',
+					lineWidth: 0
+				},
+
+				yAxis: {
+					max:15,
+					gridLineInterpolation: 'polygon',
+					tickInterval: 15/5,
+					labels:{
+						enabled: false
+					}
+				},
+
+				tooltip: {
+					shared: true,
+					enabled: false 
+				},
+
+				legend: {
+					align: 'right',
+					verticalAlign: 'top',
+					y: 70,
+					layout: 'vertical'
+				},
+				 plotOptions: {
+					series: {
+						lineColor: 'green',
+						marker: {
+							radius: 3
+						}
+					}
+				},
+				 series: [{
+					showInLegend: false,
+					pointPlacement: 'on',
+					color: '#00CC66',
+					data: poJson,
+					point:{
+							events:{
+								click:function(e) {
+										var message = '<table class="message" id="message'+ this.x +'" style="border:1px solid #666!important;">';
+										//message = message + '<caption>'+ this.series.name +'</caption>';
+										message = message + '<tbody>';
+										message = message + '<tr><th>Point</th><td class="num">'+ this.x +'</td></tr>';
+										message = message + '<tr><th>Value</th><td class="num">'+ this.y +'</td></tr>';
+										if(typeof this.args != 'undefined') {
+											$.each(this.args, function(key, value) {
+												var tClass = (key == 'Alert' ? 'error-text' 				: '');
+												var sClass = (key == 'Alert' ? 'error-text icon icon-flag' 	: '');
+												message = message + '<tr><th>'+ key + '</th><td class="'+ tClass +'">'+ value +' <span class="'+ sClass +'">&nbsp;</span></td></tr>';
+											});
+										}
+
+										var dd = $(message).dialog({ 
+											dialogClass	: 'tooltip-dailog', 
+											title		: this.series.name,
+											position 	: [e.clientX + 10, e.clientY + 10],
+											closeText   : 'close',
+											width		: 'auto',
+											maxWidth	: 800,
+											height		: 'auto',
+											modal		: true,
+											close		: function() { $('#message'+ this.x).remove(); },
+											open: function(){
+											jQuery('.ui-widget-overlay').bind('click',function(){
+												dd.dialog('close');
+											})
+										}
+														});
+									}
+							}
+					},
+				 }]
+
+			});
+		}
+	})
+});
+		</script>
+	
+	
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+	
+</head>
+<body>
+
+<!-- Top Bar -->
+	      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="#">WiperDog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-5">
+          <ul class="nav navbar-nav">
+            <li style="background-color:#2980B9;"><a href="#">Jobs</a></li>
+			<li><a href="#">Databases</a></li>
+			<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li> 
+			<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-question-circle"></i> Help<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+           </ul>
+          <form class="navbar-form navbar-left" action="#" role="search">
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn"><span class="fui-search"></span></button>
+                </span>
+              </div>
+            </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right" style="margin-right:5px;">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fui-user"></span> <%= user.local.email %><b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="/logout">Sign out</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+    <!-- Below the top navbar -->
+	
+    <div class="container-fluid">
+      <div class="row">
+	  
+		<!-- Left menu -->
+		
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">At a glance <span class="sr-only">(current)</span></a></li>
+            <li><a href="#"><span class="redBall">1</span> MySQL</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="redBall">1</span> SQL Server</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="redBall">2</span> Couchbase</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="redBall">1</span> MariaDB</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="orangeBall">1</span> MongoDB</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="orangeBall">3</span> PostgreSQL</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="orangeBall">1</span> DB2</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="orangeBall">1</span> Sybase</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="orangeBall">1</span> Teradata</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="yellowBall">2</span> CONNX</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="yellowBall">1</span> FileMaker Server</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Adabas</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">2</span> Aerospike</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> BizDB</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Clearsting</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">2</span> Cubrid</a></li>
+            <li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Data Hub</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> DBM Solutions</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Database Oasis</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Devgems Data Modeler</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">3</span> Empress RDBMS</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Firebird/a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> FoundationDB</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> HSQLDB</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> idMatch</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> IPA</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Maisy Database</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> PHPMagic</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> RethinkDB</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> TEXTML Server</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Total Path Suite</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Valentina</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> X-HIVE/DB</a></li>
+			<li style="border-top: 1px solid #eee;"><a href="#"><span class="greenBall">1</span> Zoho Creator</a></li>
+			<li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul>
+        </div>
+		
+		<!-- Right body -->
+		
+		<!-- Right body > fixed bar to select month -->
+		
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="position: fixed; z-index: 1; background-color:white; padding-bottom:0px; padding-top:5px;">
+		  <h3 class="page-header" style="margin-bottom:0px; border-bottom-width:0px; padding-bottom:7px;">
+				<button type="button" class="btn btn-default">Today</button> 
+				<button class="btn btn-default"><span class="fui-triangle-left-large"></span></button>
+				<button class="btn btn-default"><span class="fui-triangle-right-large"></span></button>
+				<div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-info dropdown-toggle" type="button">2014 <span class="caret"></span></button>
+            <ul role="menu" class="dropdown-menu">
+              <li><a href="#">2013</a></li>
+              <li><a href="#">2012</a></li>
+              <li><a href="#">2011</a></li>
+              <li class="divider"></li>
+              <li><a href="#">2010</a></li>
+            </ul>
+          </div>
+		  <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-info dropdown-toggle" type="button">November <span class="caret"></span></button>
+            <ul role="menu" class="dropdown-menu">
+              <li><a href="#">December</a></li>
+			  <li class="divider"></li>
+              <li><a href="#">October</a></li> 
+              <li><a href="#">September</a></li>
+              <li><a href="#">August</a></li>
+            </ul>
+          </div></h3>
+		  <div class="table-responsive">
+            <table class="table table-striped" style="margin-bottom:0px; table-layout: fixed;">
+              <tbody>
+				<tr style="border: 1px solid #eee;">
+                  <td style="text-align:center; padding-top:0px; padding-bottom:0px;">Sun</td>
+                  <td style="text-align:center; padding-top:0px; padding-bottom:0px;">Mon</td>
+                  <td style="text-align:center; padding-top:0px; padding-bottom:0px;">Tue</td>
+                  <td style="text-align:center; padding-top:0px; padding-bottom:0px;">Wed</td>
+                  <td style="text-align:center; padding-top:0px; padding-bottom:0px;">Thu</td>
+				  <td style="text-align:center; padding-top:0px; padding-bottom:0px;">Fri</td>
+                  <td style="text-align:center; padding-top:0px; padding-bottom:0px;">Sat</td>
+                </tr>
+				</tbody>
+            </table>
+          </div>
+ 	    </div>
+		
+		<!-- Right body > content below the month bar -->
+		
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:64px;">
+		  
+          <!-- Right body > content > calendar -->  
+          		  
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <tbody>
+				<tr>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+				  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">1</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><center><div id="container"></div></center></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+				  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><a href="/view-chart"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></a></td>
+                </tr>
+                <tr style="border: 1px solid #eee;">
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">2</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">3</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">4</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">5</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">6</td>
+				  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">7</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">8</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px; align:center;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithYellowPoint.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+				  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                </tr>
+                <tr style="border: 1px solid #eee;">
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">9</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">10</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">11</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">12</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">13</td>
+				  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">14</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">15</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithYellowPoint.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+				  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                </tr> 
+				<tr style="border: 1px solid #eee;">
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">16</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">17</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">18</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">19</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">20</td>
+				  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">21</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">22</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithOrangePoint.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+				  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithOrangePoint.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                </tr> 
+				<tr style="border: 1px solid #eee;">
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">23</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">24</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">25</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">26</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">27</td>
+				  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">28</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">29</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithRedPoint.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithRedPoint.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+				  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                </tr> 
+				<tr style="border: 1px solid #eee;">
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">30</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+				  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                  <td style="border: 1px solid #eee; text-align:right; padding-top:0px; padding-bottom:0px;">-</td>
+                </tr>
+                <tr>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"><img src="img/wiperdog-at-a-glance/PIEXHexagonChartWithAllGreenPoints.png" alt="hexagon chart" class="img-rounded img-responsive" style="width:50%; margin: auto;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+				  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+                  <td style="border: 1px solid #eee; padding-top:0px; padding-bottom:0px;"></td>
+                </tr> 
+			</tbody>
+            </table>
+          </div>
+		    
+        </div>
+		
+      </div>
+    </div>
+ 	  
+<!-- Default container -->
+<div class="container">
+ 
+</div>
+<!-- /.container -->
+
+    <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script> 
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/video.js"></script>
+    <script src="js/flat-ui.min.js"></script>
+	
+	<!-- For HighCharts -->
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/highcharts-more.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!-- views/view-chart.ejs -->
+<!DOCTYPE html> 
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>WiperDog > Databases</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-col8.css" rel="stylesheet">
+    
+	<!-- Custom styles for left menu -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    
+	<!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+	<link href="css/demo.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+	
+	<!-- Loading Font Awesome -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+	
+	<!-- Top Bar -->
+	      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-5">
+            <span class="sr-only">Toggle navigation</span>
+          </button>
+          <a class="navbar-brand" href="#">WiperDog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-5">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Jobs</a></li>
+			<li style="background-color:#2980B9;"><a href="#">Databases</a></li>
+			<li><a href="#"><i class="fa fa-cog"></i> Settings</a></li> 
+			<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-question-circle"></i> Help<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+           </ul>
+          <form class="navbar-form navbar-left" action="#" role="search">
+            <div class="form-group">
+              <div class="input-group">
+                <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                <span class="input-group-btn">
+                  <button type="submit" class="btn"><span class="fui-search"></span></button>
+                </span>
+              </div>
+            </div>
+          </form>
+          <ul class="nav navbar-nav navbar-right" style="margin-right:5px;">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="fui-user"></span> nkazuki@insight-tec.com.vn<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+  	 	 	
+    <!-- Below the top navbar -->
+	
+    <div class="container-fluid">
+      <div class="row">
+	  
+		<!-- Left menu -->
+		
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">All DB instances <span class="badge" style="background-color:white; color: #2980B9;">1200</span><span class="sr-only">(current)</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">MySQL</span> <span class="badge">50</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">SQL Server</span> <span class="badge">120</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">Couchbase</span> <span class="badge">88</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">MariaDB</span> <span class="badge">62</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">MongoDB</span> <span class="badge">25</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">PostgreSQL</span> <span class="badge">35</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">DB2</span> <span class="badge">88</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">Sybase</span> <span class="badge">28</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">Teradata</span> <span class="badge">15</span></a></li>
+            <li class="dbms"><a href="#"> <span style="color: #2980B9;">CONNX</span> <span class="badge">56</span></a></li>
+            <li class="dbms"><a href="#"> <span style="color: #2980B9;">FileMaker Server</span> <span class="badge">182</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">Adabas</span> <span class="badge">66</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">Aerospike</span> <span class="badge">82</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">BizDB</span> <span class="badge">32</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">Clearsting</span> <span class="badge">69</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">Cubrid</span> <span class="badge">110</span></a></li>
+            <li class="dbms"><a href="#"><span style="color: #2980B9;">Data Hub</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">DBM Solutions</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">Database Oasis</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">Devgems Data Modeler</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span class="greenBall">3</span> <span style="color: #2980B9;">Empress RDBMS</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">Firebird</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">FoundationDB</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">HSQLDB</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">idMatch</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">IPA</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">Maisy Database</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">PHPMagic</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">RethinkDB</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">TEXTML Server</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">Total Path Suite</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">Valentina</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">X-HIVE/DB</span> <span class="badge">62</span></a></li>
+			<li class="dbms"><a href="#"><span style="color: #2980B9;">Zoho Creator</span> <span class="badge">62</span></a></li>
+			<li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul>
+        </div>
+		
+		<!-- Right body -->
+		
+		<!-- Right body > fixed bar to select job -->
+		
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="position: fixed; z-index: 1; background-color:white; padding-bottom:0px; padding-top:5px;">
+		  <h3 class="page-header" style="margin-bottom:0px; padding-bottom:7px;">
+			<div class="progress">
+				<div class="progress-bar progress-bar-success" style="width: 35%"><span class="sr-only">35% Complete (success)</span></div>
+				<div class="progress-bar progress-bar-warning" style="width: 20%"><span class="sr-only">20% Complete (warning)</span></div>
+				<div class="progress-bar progress-bar-danger" style="width: 10%"><span class='sr-only'>10% Complete (danger)</span></div>
+			</div>
+		  </h3>
+		   
+ 	    </div>
+		
+		<div id="containerTestAJAX"></div>
+		
+		<!-- Right body > content below the body-top-bar -->
+		
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:64px;">
+			
+			<!-- Right body > charts -->
+			<div><img src="img/view-chart/chart-today-thisweek-thismonth-thisyear.png" alt="Weekly, Monthly, Yearly" style="width:100%;"> </div>
+			<!-- /.Right body > charts -->
+			
+			<!-- Right body > data table -->
+			
+			<div class="row"> 
+				<div class="col8-lg-1-header">IST_IID</div>
+				<div class="col8-lg-1-header">Lastest</div>
+				<div class="col8-lg-1-header">MIN</div>
+				<div class="col8-lg-1-header">MAX</div>
+				<div class="col8-lg-1-header">SV1</div>
+				<div class="col8-lg-1-header">SV2</div>
+				<div class="col8-lg-1-header">SV3</div>
+				<div class="col8-lg-1-header">UDP</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-1</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-2</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-3</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-4</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-5</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-6</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-7</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-8</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-9</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-10</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+			
+			<div class="row"> 
+				<div class="col8-lg-1">instance-id-11</div>
+				<div class="col8-lg-1">34</div>
+				<div class="col8-lg-1">12</div>
+				<div class="col8-lg-1">97</div>
+				<div class="col8-lg-1">56</div>
+				<div class="col8-lg-1">78</div>
+				<div class="col8-lg-1">89</div>
+				<div class="col8-lg-1">11:08AM</div> 
+			</div>
+		  
+			<!-- /.Right body > data table -->
+			
+        </div>
+		
+      </div>
+    </div>
+
+	<!-- Default container > not used -->
+	<div class="container">
+		 		 		
+    </div>
+    <!-- /.container -->
+
+
+    <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/video.js"></script>
+    <script src="js/flat-ui.min.js"></script>
+
+	<!-- For HighCharts -->
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/highcharts-more.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+	
+	<!-- Loading JQuery code for HighCharts -->
+	<script src="js/wiperdog-view-chart.js"></script>
+
+  </body>
+</html>
