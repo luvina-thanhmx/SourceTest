@@ -5,7 +5,6 @@ II. Note
   - http://education.oracle.com/education/downloads/Exam803_SampleQuestion.pdf
 
 III. Question
-   
   1. 
     int x = 1;
     long y = 2;
@@ -22,3 +21,7 @@ III. Question
     short y = 3; 
     short z = x * y; // Does not compile
     //short z = (short)(x * y); // Compiles ok
+  4. 
+    short x = 10;
+    short y = 3;
+    System.out.println(x / y);
