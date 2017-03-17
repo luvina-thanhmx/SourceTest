@@ -6,6 +6,8 @@ II. Note
   - http://education.oracle.com/education/downloads/Exam803_SampleQuestion.pdf
 
 III. Question
+
+A. Chap 1,2
   1. 
     int x = 1;
     long y = 2;
@@ -22,7 +24,18 @@ III. Question
     short y = 3; 
     short z = x * y; // Does not compile
     //short z = (short)(x * y); // Compiles ok
+    
   4. 
     short x = 10;
     short y = 3;
     System.out.println(x / y);
+
+  5.
+    static public void main(String[] __A_V_) {
+      String $ = "1";
+      for (int x = 0; ++x < __A_V_.length;)
+        $ +=__A_V_[x];
+      System.out.println($);
+    }
+
+    ??? Compilation error or Runtime error and which line is error.
