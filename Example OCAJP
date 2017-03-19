@@ -39,3 +39,122 @@ A. Chap 1,2
     }
 
     ??? Compilation error or Runtime error and which line is error.
+
+  6. 
+    int []a = {1, 2, 3, 4, 5, 6};
+    int i = a.length - 1;
+
+    while(i>=0){
+        System.out.print(a[i]);
+      i--;
+    } 
+
+    A. 123456
+    B. An exception could be thrown at runtime.
+    C. 654321
+    D. nothing
+    E. 65432
+    F. 12345
+    
+  7.
+    - A and E are classes
+    - B and D are interfaces 
+    - C is an abstract class
+
+    Which are true? (Choose 3)
+
+     A. class F implements B, C{ }
+     B. class F implements B{ } v
+     C. class Fextends A, E{ }
+     D. class F extends E{ } v
+     E. class F implements B, D{ } v
+
+  8. 
+    public static void main(String[] args) {
+      int a[] = { 1,2,3,4};
+      System.out.print(a instanceof Object);
+    }
+    
+    A. Will produce output as false.
+    B. Compilation fails due to error at line 3.
+    C. Will produce output as true.
+    D. Compilation fails due to error at line 4.
+    E. Length of this array is 3.
+    
+  9.
+    int a[] = {1, 2, 053, 4};
+    int b[][] = { 
+        {1, 2, 4}, 
+        {2, 2, 1}, 
+        {0, 43, 2}
+      };
+    System.out.print(a[3] == b[0][2]);
+    System.out.print(" " + (a[2] == b[2][1]));
+    
+    A. true false
+    B. false false
+    C. false true
+    D. true true 
+    E. Compilation fails
+    
+  10.
+    int a[][] = new int[3][];
+    a[1] = new int[]{1, 2, 3};
+    a[2] = new int[]{4, 5};
+    System.out.print(a[1][1]);
+    
+     A. Compilation fails due to line 3.
+     B. Compilation fails due to line 4.
+     C. An exception will be thrown in runtime.
+     D. 2
+     E. 3
+     F. 5
+   
+   11.
+      class Person{
+        static int pid;
+        int age;
+        String name;
+
+        Person(String s,int i ){
+          ++pid;
+          name=s;
+          age=i;
+        }
+      }
+
+      class Test{
+        public static void main(String args[]){
+          erson p1 = new Person("John" , 22);
+          Test te = new Test();
+          Person p2 = te.change(p1);
+          System.out.println(p2.pid +" "+p2.name+ " "+p2.age);
+          System.out.print(p1.pid +" "+p1.name+" "+ p1.age);
+        }
+        private Person change(Object o){
+          Person p2 = (Person)o;
+          p2.age = 25;
+          return p2;
+        }
+      }
+
+      A. 1 John 25
+         1 John 25
+      B. 1 John 25
+         1 John 22
+      C. 1 John 22
+         1 John 22
+      D. ClassCastException is thrown at runtime.
+      E. Compilation fails.
+    
+    12.
+      String s = "Java";
+      s.concat(" SE 6");
+      s.toLowerCase();
+      System.out.print(s);
+      
+      Q: How many String objects have been created when the code reaches line 7?
+      A: 
+        line 1 - creates a new String object and give value 'java'
+        line 2 - 2 string object - 'SE 6' and 'JAVA SE 6'
+        line 3 - new String object 'java'
